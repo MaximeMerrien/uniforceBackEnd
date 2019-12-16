@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -74,6 +76,39 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $pseudoJoueur;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\CompoJeu", mappedBy="id_utilisateur")
+     */
+    private $compoJeus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Palmares", inversedBy="id_utilisateur")
+     */
+    private $palmares;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\CompoEquipe", mappedBy="id_utilisateur")
+     */
+    private $compoEquipes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Evenement", mappedBy="id_utilisateur")
+     */
+    private $evenements;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CompoEvenement", mappedBy="id_utilisateur")
+     */
+    private $compoEvenements;
+
+    public function __construct()
+    {
+        $this->compoJeus = new ArrayCollection();
+        $this->compoEquipes = new ArrayCollection();
+        $this->evenements = new ArrayCollection();
+        $this->compoEvenements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -245,6 +280,133 @@ class Utilisateur implements UserInterface
     public function setPseudoJoueur(?string $pseudoJoueur): self
     {
         $this->pseudoJoueur = $pseudoJoueur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompoJeu[]
+     */
+    public function getCompoJeus(): Collection
+    {
+        return $this->compoJeus;
+    }
+
+    public function addCompoJeus(CompoJeu $compoJeus): self
+    {
+        if (!$this->compoJeus->contains($compoJeus)) {
+            $this->compoJeus[] = $compoJeus;
+            $compoJeus->addIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompoJeus(CompoJeu $compoJeus): self
+    {
+        if ($this->compoJeus->contains($compoJeus)) {
+            $this->compoJeus->removeElement($compoJeus);
+            $compoJeus->removeIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function getPalmares(): ?Palmares
+    {
+        return $this->palmares;
+    }
+
+    public function setPalmares(?Palmares $palmares): self
+    {
+        $this->palmares = $palmares;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompoEquipe[]
+     */
+    public function getCompoEquipes(): Collection
+    {
+        return $this->compoEquipes;
+    }
+
+    public function addCompoEquipe(CompoEquipe $compoEquipe): self
+    {
+        if (!$this->compoEquipes->contains($compoEquipe)) {
+            $this->compoEquipes[] = $compoEquipe;
+            $compoEquipe->addIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompoEquipe(CompoEquipe $compoEquipe): self
+    {
+        if ($this->compoEquipes->contains($compoEquipe)) {
+            $this->compoEquipes->removeElement($compoEquipe);
+            $compoEquipe->removeIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Evenement[]
+     */
+    public function getEvenements(): Collection
+    {
+        return $this->evenements;
+    }
+
+    public function addEvenement(Evenement $evenement): self
+    {
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->addIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenement(Evenement $evenement): self
+    {
+        if ($this->evenements->contains($evenement)) {
+            $this->evenements->removeElement($evenement);
+            $evenement->removeIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompoEvenement[]
+     */
+    public function getCompoEvenements(): Collection
+    {
+        return $this->compoEvenements;
+    }
+
+    public function addCompoEvenement(CompoEvenement $compoEvenement): self
+    {
+        if (!$this->compoEvenements->contains($compoEvenement)) {
+            $this->compoEvenements[] = $compoEvenement;
+            $compoEvenement->setIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompoEvenement(CompoEvenement $compoEvenement): self
+    {
+        if ($this->compoEvenements->contains($compoEvenement)) {
+            $this->compoEvenements->removeElement($compoEvenement);
+            // set the owning side to null (unless already changed)
+            if ($compoEvenement->getIdUtilisateur() === $this) {
+                $compoEvenement->setIdUtilisateur(null);
+            }
+        }
 
         return $this;
     }
