@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -74,6 +76,16 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $pseudoJoueur;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Actualite", mappedBy="utilisateur")
+     */
+    private $actualites;
+
+    public function __construct()
+    {
+        $this->actualites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -245,6 +257,37 @@ class Utilisateur implements UserInterface
     public function setPseudoJoueur(?string $pseudoJoueur): self
     {
         $this->pseudoJoueur = $pseudoJoueur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Actualite[]
+     */
+    public function getActualites(): Collection
+    {
+        return $this->actualites;
+    }
+
+    public function addActualite(Actualite $actualite): self
+    {
+        if (!$this->actualites->contains($actualite)) {
+            $this->actualites[] = $actualite;
+            $actualite->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActualite(Actualite $actualite): self
+    {
+        if ($this->actualites->contains($actualite)) {
+            $this->actualites->removeElement($actualite);
+            // set the owning side to null (unless already changed)
+            if ($actualite->getUtilisateur() === $this) {
+                $actualite->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }
