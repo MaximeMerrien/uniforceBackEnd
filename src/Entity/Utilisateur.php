@@ -82,9 +82,27 @@ class Utilisateur implements UserInterface
      */
     private $actualites;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Jeu", mappedBy="utilisateurs")
+     */
+    private $jeux;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Palmares", mappedBy="utilisateur")
+     */
+    private $palmares;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Evenement", mappedBy="utilisateur")
+     */
+    private $evenements;
+
     public function __construct()
     {
         $this->actualites = new ArrayCollection();
+        $this->jeux = new ArrayCollection();
+        $this->palmares = new ArrayCollection();
+        $this->evenements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -286,6 +304,96 @@ class Utilisateur implements UserInterface
             // set the owning side to null (unless already changed)
             if ($actualite->getUtilisateur() === $this) {
                 $actualite->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Jeu[]
+     */
+    public function getJeux(): Collection
+    {
+        return $this->jeux;
+    }
+
+    public function addJeux(Jeu $jeux): self
+    {
+        if (!$this->jeux->contains($jeux)) {
+            $this->jeux[] = $jeux;
+            $jeux->addUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJeux(Jeu $jeux): self
+    {
+        if ($this->jeux->contains($jeux)) {
+            $this->jeux->removeElement($jeux);
+            $jeux->removeUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Palmares[]
+     */
+    public function getPalmares(): Collection
+    {
+        return $this->palmares;
+    }
+
+    public function addPalmare(Palmares $palmare): self
+    {
+        if (!$this->palmares->contains($palmare)) {
+            $this->palmares[] = $palmare;
+            $palmare->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePalmare(Palmares $palmare): self
+    {
+        if ($this->palmares->contains($palmare)) {
+            $this->palmares->removeElement($palmare);
+            // set the owning side to null (unless already changed)
+            if ($palmare->getUtilisateur() === $this) {
+                $palmare->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Evenement[]
+     */
+    public function getEvenements(): Collection
+    {
+        return $this->evenements;
+    }
+
+    public function addEvenement(Evenement $evenement): self
+    {
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenement(Evenement $evenement): self
+    {
+        if ($this->evenements->contains($evenement)) {
+            $this->evenements->removeElement($evenement);
+            // set the owning side to null (unless already changed)
+            if ($evenement->getUtilisateur() === $this) {
+                $evenement->setUtilisateur(null);
             }
         }
 
