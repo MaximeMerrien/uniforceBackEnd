@@ -26,7 +26,7 @@ class UserFixtures extends Fixture
         $roles = array('ROLE_ADMIN', 'ROLE_UTILISATEUR', 'ROLE_JOUEUR', 'ROLE_MODO');
 
         for ($i = 1; $i <= self::NUMBER_OF_USERS; $i++) {
-            $user = $this->createUser($faker->unique()->firstName(), [$faker->randomElement($roles)], $faker->sha256(), $faker->lastName(), $faker->firstName(), new \DateTime($faker->date()), $faker->safeEmail(), $faker->address(), $faker->randomElement($status), $faker->sentence(), $faker->firstName());
+            $user = $this->createUser($faker->unique()->firstName(), [$faker->randomElement($roles)], 'root', $faker->lastName(), $faker->firstName(), new \DateTime($faker->date()), $faker->safeEmail(), $faker->address(), $faker->randomElement($status), $faker->sentence(), $faker->firstName());
 
             $this->addReference(Utilisateur::class.$i, $user);
 
