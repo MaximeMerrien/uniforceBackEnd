@@ -18,6 +18,7 @@
 /.env
 /.env.test
 /.vs
+###< Personal confs ###
 
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
