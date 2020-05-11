@@ -9,5 +9,5 @@ Pour lancer le service, il faut disposer de [Symfony](https://symfony.com/), de 
 ### Obtenir une copie locale de développement
 Pour obtenir une copie locale de développement, rendez-vous sur la page : [Obtenir une copie locale de développement](https://github.com/MaximeMerrien/uniforceBackEnd/wiki/Obtenir-une-copie-locale-de-d%C3%A9veloppement)
 
-### Effectuer une analuse SonarQube
-Pour effectuer une analyse SonarQube, rendez-vous sur cette page : [Analyse avec SonarQube](https://github.com/MaximeMerrien/uniforceBackEnd/wiki/SonarQube)
+### Effectuer une analyse SonarQube
+Pour effectuer une analyse SonarQube, rendez-vous sur la page : [Analyse avec SonarQube](https://github.com/MaximeMerrien/uniforceBackEnd/wiki/SonarQube)
