@@ -6,6 +6,8 @@ L'API est également utilisée pour gérer les éléments contenus dans le back-
 
 Pour lancer le service, il faut disposer de [Symfony](https://symfony.com/), de [Composer](https://getcomposer.org/), et de [XAMPP](https://www.apachefriends.org/fr/index.html).
 
+### Obtenir une copie locale de développement
 Pour obtenir une copie locale de développement, rendez-vous sur la page : [Obtenir une copie locale de développement](https://github.com/MaximeMerrien/uniforceBackEnd/wiki/Obtenir-une-copie-locale-de-d%C3%A9veloppement)
 
+### Effectuer une analuse SonarQube
 Pour effectuer une analyse SonarQube, rendez-vous sur cette page : [Analyse avec SonarQube](https://github.com/MaximeMerrien/uniforceBackEnd/wiki/SonarQube)
