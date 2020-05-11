@@ -4,4 +4,6 @@ Réalisé avec <img src="https://symfony.com/logos/symfony_black_02.svg" height=
 
 L'API est également utilisée pour gérer les éléments contenus dans le back-office, accessible pour les administrateurs du site.
 
+Pour lancer le service, il faut disposer de [Symfony](https://symfony.com/), et de [Composer](https://getcomposer.org/).
+
 Pour effectuer une analyse SonarQube, rendez-vous sur cette page : [Analyse avec SonarQube](https://github.com/MaximeMerrien/uniforceBackEnd/wiki/SonarQube)
